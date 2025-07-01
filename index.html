@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Услуги грузчиков и разнорабочих - Просто Груз</title>
+    <title>Просто Груз - Услуги грузчиков и переездов в Москве и МО</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
-
-    <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
             <div class="top-bar-left">
@@ -18,20 +16,40 @@
             <div class="top-bar-right">
                 <span>Физ. лица: <a href="tel:+74997555495">+7 (499) 755-54-95</a></span>
                 <span>Юр. лица: <a href="tel:+79153186781">+7 (915) 318-67-81</a></span>
-                <a href="#" class="social-icon"><img src="images/telegram.svg" alt="Telegram"></a>
-                <a href="#" class="social-icon"><img src="images/whatsapp.svg" alt="WhatsApp"></a>
-                <a href="#" class="social-icon"><img src="images/phone.svg" alt="Phone"></a>
+                <a href="https://t.me/prostoGruz" class="social-icon"><img src="images/telegram-icon.svg" alt="Telegram"></a>
+                <a href="https://wa.me/+79997555495" class="social-icon"><img src="images/whatsapp-icon.svg" alt="WhatsApp"></a>
             </div>
         </div>
     </div>
 
-    <!-- Header -->
-    <header class="header" id="home">
+    <header class="header">
         <nav class="navbar">
             <div class="container">
-                <div class="nav-brand">
+                <a href="/" class="nav-brand">
                     <img src="images/logo.svg" alt="Просто Груз" class="logo">
-                </div>
+                </a>
+                <button class="menu-toggle">Меню</button>
+                <nav class="mobile-menu">
+                    <ul>
+                        <li><a href="#people" class="mobile-nav-link">Людям</a></li>
+                        <li><a href="#business" class="mobile-nav-link">Бизнесу</a></li>
+                        <li><a href="#services" class="mobile-nav-link">Услуги</a></li>
+                        <li><a href="#partnership" class="mobile-nav-link">Сотрудничество</a></li>
+                        <li><a href="#contact" class="mobile-nav-link">Контакты</a></li>
+                    </ul>
+                    <div class="mobile-social-links">
+                        <a href="https://t.me/prostoGruz" class="social-link telegram">
+                            <span>📱</span> Telegram
+                        </a>
+                        <a href="https://wa.me/+79997555495" class="social-link whatsapp">
+                            <span>💬</span> WhatsApp
+                        </a>
+                    </div>
+                    <div class="mobile-contacts">
+                        <p>Физ. лица: <a href="tel:+74997555495">+7 (499) 755-54-95</a></p>
+                        <p>Юр. лица: <a href="tel:+79153186781">+7 (915) 318-67-81</a></p>
+                    </div>
+                </nav>
                 <ul class="nav-menu">
                     <li><a href="#people" class="nav-link">Людям</a></li>
                     <li><a href="#business" class="nav-link">Бизнесу</a></li>
@@ -40,38 +58,25 @@
                     <li><a href="#contact" class="nav-link">Контакты</a></li>
                 </ul>
                 <div class="nav-actions">
-                    <button class="nav-btn call-btn">Оформить заявку</button>
-                    <div class="hamburger-menu">
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                    </div>
+                    <button class="nav-btn cta-btn">Оформить заявку</button>
                 </div>
             </div>
         </nav>
-        <div class="mobile-menu">
-            <ul class="mobile-nav-menu">
-                <li><a href="#people" class="mobile-nav-link">Людям</a></li>
-                <li><a href="#business" class="mobile-nav-link">Бизнесу</a></li>
-                <li><a href="#services" class="mobile-nav-link">Услуги</a></li>
-                <li><a href="#partnership" class="mobile-nav-link">Сотрудничество</a></li>
-                <li><a href="#contact" class="mobile-nav-link">Контакты</a></li>
-            </ul>
-            <div class="mobile-social-links">
-                <a href="#" class="social-link telegram">
-                    <span>📱</span> Telegram
-                </a>
-                <a href="#" class="social-link whatsapp">
-                    <span>💬</span> WhatsApp
-                </a>
-            </div>
-        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <div class="discount-banner">
         <div class="container">
-            <div class="hero-wrapper">
+            <div class="banner-content">
+                <span class="banner-icon">🎉</span>
+                <span class="banner-text">Скидка 10% на переезд сегодня! Успейте воспользоваться предложением!</span>
+                <button class="banner-btn">Заказать со скидкой</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero" id="people">
+        <div class="hero-wrapper">
+            <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
                         <h1>Услуги грузчиков и переездов в Москве</h1>
@@ -90,16 +95,16 @@
                         <h3>Оставьте заявку</h3>
                         <form class="order-form">
                             <div class="form-group">
-                                <input type="text" id="name" name="name" placeholder="Имя">
+                                <input type="text" name="name" placeholder="Ваше имя">
                             </div>
                             <div class="form-group">
-                                <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
+                                <input type="tel" id="phone" name="phone" placeholder="Номер телефона" required>
                             </div>
                             <div class="form-group">
-                                <textarea id="info" name="info" placeholder="Дополнительная информация"></textarea>
+                                <textarea name="info" placeholder="Комментарий к заявке"></textarea>
                             </div>
                             <button type="submit" class="submit-btn">Оставить заявку</button>
-                            <p class="agreement">Нажимая на кнопку, Вы соглашаетесь с <a href="#">Пользовательским соглашением</a> и <a href="#">Политикой обработки персональных данных</a></p>
+                            <p class="agreement">Нажимая на кнопку, Вы соглашаетесь с <a href="/agreement">Пользовательским соглашением</a> и <a href="/privacy">Политикой обработки персональных данных</a></p>
                         </form>
                     </div>
                 </div>
@@ -107,25 +112,13 @@
         </div>
     </section>
 
-    <!-- Discount Banner -->
-    <div class="discount-banner">
-        <div class="container">
-            <div class="banner-content">
-                <span class="banner-icon">🎉</span>
-                <span class="banner-text">Скидка 10% на переезд сегодня! Успейте воспользоваться предложением!</span>
-                <button class="banner-btn">Заказать со скидкой</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Services Section -->
     <section class="services" id="services">
         <div class="container">
             <h2>Надёжные исполнители для любых задач</h2>
-            <p class="section-description">Мы предоставим опытных рабочих под ваш запрос — быстро, аккуратно и с гарантией результата.</p>
+            <p class="section-description">Мы предоставим опытных рабочих под ваш запрос — быстро, аккуратно и с гарантией</p>
             <div class="services-grid">
                 <div class="service-card">
-                    <img src="images/service_1.jpg" alt="Переезды квартир, офисов и складов" class="service-image">
+                    <img src="images/service_1.jpg" alt="Переезды" class="service-image">
                     <h3>Переезды квартир, офисов и складов</h3>
                     <p>Упакуем вещи, аккуратно вынесем, перевезём и расставим всё на новом месте. Полный комплекс услуг для комфортного переезда.</p>
                     <button class="btn">Заказать</button>
@@ -143,7 +136,7 @@
                     <button class="btn">Заказать</button>
                 </div>
                 <div class="service-card">
-                    <img src="images/service_4.jpg" alt="Подготовка помещения к ремонту или открытию" class="service-image">
+                    <img src="images/service_4.jpg" alt="Подготовка помещения" class="service-image">
                     <h3>Подготовка помещения к ремонту или открытию</h3>
                     <p>Выносим старое, заносим новое, освобождаем и подготавливаем пространство к работе.</p>
                     <button class="btn">Заказать</button>
@@ -155,7 +148,7 @@
                     <button class="btn">Заказать</button>
                 </div>
                 <div class="service-card">
-                    <img src="images/service_6.jpg" alt="И многое другое" class="service-image">
+                    <img src="images/service_6.jpg" alt="Другие услуги" class="service-image">
                     <h3>И многое другое</h3>
                     <p>Не нашли нужный вариант? Оставьте заявку — мы подберём подходящих специалистов под любую задачу.</p>
                     <button class="btn">Заказать</button>
@@ -164,8 +157,7 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats" id="stats">
+    <section class="stats">
         <div class="container">
             <h2>Мы в цифрах</h2>
             <div class="stats-grid">
@@ -189,8 +181,7 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
-    <section class="about" id="people">
+    <section class="about" id="about">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
@@ -200,44 +191,43 @@
                     <p>За годы работы мы выполнили тысячи заказов и заслужили доверие клиентов благодаря профессионализму, пунктуальности и ответственному подходу к каждой задаче.</p>
                 </div>
                 <div class="about-image">
-                    <img src="images/about_us.jpg" alt="Наша команда">
+                    <img src="images/about_us.jpg" alt="О нас" class="slide-in-image">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Advantages Section -->
     <section class="advantages">
         <div class="container">
             <h2>Наши преимущества</h2>
             <div class="advantages-grid">
                 <div class="advantage-card">
-                    <img src="images/icon-verified.svg" alt="Проверенные исполнители" class="advantage-icon">
+                    <img src="images/advantage_1.svg" alt="Профессиональные грузчики" class="advantage-icon">
                     <h3>Профессиональные грузчики — быстро, качественно, безопасно</h3>
                     <p>Наша команда состоит из опытных грузчиков, прошедших строгий отбор и обучение. Мы работаем с любыми типами грузов, включая перевозку мебели, техники и тяжёлых предметов. Наша задача — сделать ваш переезд в Москве максимально удобным и безопасным.</p>
                 </div>
                 <div class="advantage-card">
-                    <img src="images/icon-fast.svg" alt="Быстрый выезд" class="advantage-icon">
+                    <img src="images/advantage_2.svg" alt="Оперативный выезд" class="advantage-icon">
                     <h3>Оперативный выезд — от 1 часа</h3>
                     <p>Мы ценим ваше время. Наши грузчики готовы выехать на объект в течение 1 часа в Москве и области. Быстрая подача транспорта и оперативное выполнение задач — залог вашего спокойствия.</p>
                 </div>
                 <div class="advantage-card">
-                    <img src="images/icon-price.svg" alt="Честные цены" class="advantage-icon">
+                    <img src="images/advantage_3.svg" alt="Прозрачные цены" class="advantage-icon">
                     <h3>Прозрачные цены и никаких скрытых платежей</h3>
                     <p>Мы придерживаемся честной и понятной ценовой политики. Все расценки указаны заранее — от 590 ₽/час. Мы предоставляем точную информацию по стоимости услуг, чтобы не было неприятных сюрпризов.</p>
                 </div>
                 <div class="advantage-card">
-                    <img src="images/icon-guarantee.svg" alt="Гарантия качества" class="advantage-icon">
+                    <img src="images/advantage_4.svg" alt="Переезд под ключ" class="advantage-icon">
                     <h3>Переезд под ключ — от упаковки до сборки</h3>
                     <p>Мы занимаемся переездами под ключ: от упаковки вещей до сборки мебели и расстановки на новом месте. Вам не нужно беспокоиться о мелочах — мы сделаем все сами! Этот сервис идеально подходит как для квартирных, так и для офисных переездов.</p>
                 </div>
                 <div class="advantage-card">
-                    <img src="images/icon-support.svg" alt="Поддержка 24/7" class="advantage-icon">
+                    <img src="images/advantage_5.svg" alt="Поддержка 24/7" class="advantage-icon">
                     <h3>Поддержка 24/7</h3>
                     <p>Наша служба поддержки работает круглосуточно и готова помочь в любое время</p>
                 </div>
                 <div class="advantage-card">
-                    <img src="images/icon-insurance.svg" alt="Страхование" class="advantage-icon">
+                    <img src="images/advantage_6.svg" alt="Работа с юр. лицами" class="advantage-icon">
                     <h3>Работа с юридическими лицами</h3>
                     <p>Мы работаем не только с частными клиентами, но и с юридическими лицами. Предоставляем все необходимые документы (договоры, акты выполненных работ, счета). У нас можно заказать переезд для бизнеса и быть уверенным в соблюдении всех сроков и условий.</p>
                 </div>
@@ -245,58 +235,31 @@
         </div>
     </section>
 
-    <!-- Trusted Clients Section -->
     <section class="trusted-clients">
         <div class="container">
             <h2>Нам доверяют</h2>
             <div class="clients-slider">
                 <div class="clients-track">
-                    <div class="client-logo">
-                        <img src="images/client-1.png" alt="Клиент 1">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-2.png" alt="Клиент 2">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-3.png" alt="Клиент 3">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-4.png" alt="Клиент 4">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-5.png" alt="Клиент 5">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-6.png" alt="Клиент 6">
-                    </div>
-                    <!-- Duplicate for seamless loop -->
-                    <div class="client-logo">
-                        <img src="images/client-1.png" alt="Клиент 1">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-2.png" alt="Клиент 2">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-3.png" alt="Клиент 3">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-4.png" alt="Клиент 4">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-5.png" alt="Клиент 5">
-                    </div>
-                    <div class="client-logo">
-                        <img src="images/client-6.png" alt="Клиент 6">
-                    </div>
+                    <div class="client-logo"><img src="images/client_1.png" alt="Client 1"></div>
+                    <div class="client-logo"><img src="images/client_2.png" alt="Client 2"></div>
+                    <div class="client-logo"><img src="images/client_3.png" alt="Client 3"></div>
+                    <div class="client-logo"><img src="images/client_4.png" alt="Client 4"></div>
+                    <div class="client-logo"><img src="images/client_5.png" alt="Client 5"></div>
+                    <div class="client-logo"><img src="images/client_6.png" alt="Client 6"></div>
+                    <div class="client-logo"><img src="images/client_1.png" alt="Client 1"></div>
+                    <div class="client-logo"><img src="images/client_2.png" alt="Client 2"></div>
+                    <div class="client-logo"><img src="images/client_3.png" alt="Client 3"></div>
+                    <div class="client-logo"><img src="images/client_4.png" alt="Client 4"></div>
+                    <div class="client-logo"><img src="images/client_5.png" alt="Client 5"></div>
+                    <div class="client-logo"><img src="images/client_6.png" alt="Client 6"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Business Section -->
     <section class="business" id="business">
-        <div class="container">
-            <div class="business-glass-wrapper">
+        <div class="business-glass-wrapper">
+            <div class="container">
                 <div class="business-content">
                     <div class="business-text">
                         <h2>Услуги для бизнеса — грузчики и Переезды под ключ в Москве</h2>
@@ -309,83 +272,111 @@
                             <li>Подготовка помещений к ремонту или открытию</li>
                             <li>Услуги разнорабочих для производственных задач</li>
                         </ul>
-                        <button class="btn">Получить коммерческое предложение</button>
+                        <button class="cta-btn">Получить коммерческое предложение</button>
                     </div>
                     <div class="business-image">
-                        <img src="images/business_image.jpg" alt="Услуги для бизнеса" class="slide-in-image">
+                        <img src="images/business.jpg" alt="Business" class="slide-in-image">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Partnership Section -->
     <section class="partnership" id="partnership">
         <div class="container">
             <h2>Сотрудничество</h2>
             <div class="partnership-content">
                 <div class="partnership-info">
-                    <h3>Приглашаем к сотрудничеству</h3>
-                    <p>Мы открыты для долгосрочного и взаимовыгодного сотрудничества с компаниями и частными лицами. Если вы ищете надёжного партнёра для выполнения погрузочно-разгрузочных работ, переездов или других задач, требующих физической силы и профессионализма — мы готовы предложить вам выгодные условия.</p>
+                    <h3>Станьте нашим партнёром</h3>
+                    <p>Мы всегда открыты для сотрудничества с надёжными исполнителями. Если у вас есть опыт в сфере грузоперевозок, переездов или складских работ, присоединяйтесь к нашей команде.</p>
                     <ul>
-                        <li>Гибкие условия работы</li>
-                        <li>Индивидуальный подход к каждому клиенту</li>
-                        <li>Высокое качество услуг</li>
-                        <li>Оперативное выполнение задач</li>
-                        <li>Полный пакет документов для юридических лиц</li>
+                        <li>Стабильный доход</li>
+                        <li>Гибкий график работы</li>
+                        <li>Поддержка и обучение</li>
+                        <li>Возможность карьерного роста</li>
                     </ul>
-                    <button class="btn">Обсудить сотрудничество</button>
+                    <button class="cta-btn">Стать партнёром</button>
                 </div>
                 <div class="partnership-image">
-                    <img src="images/partnership_image.jpg" alt="Сотрудничество">
+                    <img src="images/partnership.jpg" alt="Partnership" class="slide-in-image">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <section class="contact-section" id="contact">
         <div class="container">
             <h2>Контакты</h2>
             <div class="contact-content">
                 <div class="contact-info">
-                    <p><strong>Адрес:</strong> г. Москва, ул. Примерная, д. 1</p>
-                    <p><strong>Телефон:</strong> <a href="tel:+74997555495">+7 (499) 755-54-95</a></p>
-                    <p><strong>Email:</strong> <a href="mailto:info@prostogruz.ru">info@prostogruz.ru</a></p>
-                    <p><strong>Режим работы:</strong> Ежедневно, 09:00 - 21:00</p>
-                    <div class="social-links">
-                        <a href="#" class="social-icon"><img src="images/telegram.svg" alt="Telegram"></a>
-                        <a href="#" class="social-icon"><img src="images/whatsapp.svg" alt="WhatsApp"></a>
+                    <div class="contact-item">
+                        <h3>Телефоны</h3>
+                        <p>Физ. лица: <a href="tel:+74997555495">+7 (499) 755-54-95</a></p>
+                        <p>Юр. лица: <a href="tel:+79153186781">+7 (915) 318-67-81</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Мессенджеры</h3>
+                        <div class="social-links">
+                            <a href="https://t.me/prostoGruz" class="social-link telegram">
+                                <span>📱</span> Telegram
+                            </a>
+                            <a href="https://wa.me/+79997555495" class="social-link whatsapp">
+                                <span>💬</span> WhatsApp
+                            </a>
+                            <a href="tel:+74997555495" class="social-link phone">
+                                <span>📞</span> Позвонить
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Режим работы</h3>
+                        <p>Ежедневно: 8:00 - 22:00</p>
+                        <p>Выезд: круглосуточно</p>
                     </div>
                 </div>
                 <div class="contact-map">
-                    <img src="images/map_placeholder.jpg" alt="Карта">
+                    <img src="images/map.jpg" alt="Map" class="map-image slide-in-image">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Просто Груз. Все права защищены.</p>
-            <div class="footer-links">
-                <a href="#">Политика конфиденциальности</a>
-                <a href="#">Карта сайта</a>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Просто Груз</h4>
+                    <p>Профессиональные услуги грузчиков и переездов в Москве и МО. Быстро, надёжно, доступно.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Услуги</h4>
+                    <ul>
+                        <li><a href="#services">Переезды</a></li>
+                        <li><a href="#services">Грузчики</a></li>
+                        <li><a href="#services">Складские работы</a></li>
+                        <li><a href="#business">Для бизнеса</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p><a href="tel:+74997555495">+7 (499) 755-54-95</a></p>
+                    <p><a href="tel:+79153186781">+7 (915) 318-67-81</a></p>
+                    <p><a href="mailto:info@prostogruz.ru">info@prostogruz.ru</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="#about">О компании</a></li>
+                        <li><a href="/reviews">Отзывы</a></li>
+                        <li><a href="/vacancies">Вакансии</a></li>
+                        <li><a href="/privacy">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Просто Груз. Все права защищены.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Success Modal -->
-    <div class="success-modal">
-        <div class="success-modal-content">
-            <h3>Заявка отправлена!</h3>
-            <p>Сообщение успешно отправлено, ожидайте звонка в течение 10 минут</p>
-            <button onclick="closeSuccessMessage()">Понятно</button>
-        </div>
-    </div>
-
-    <script src="js/script.js"></script>
 </body>
 </html>
-
