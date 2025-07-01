@@ -92,29 +92,18 @@ document.addEventListener('DOMContentLoaded', function() {
 // Intersection Observer for animations
 document.addEventListener('DOMContentLoaded', function() {
     const observerOptions = {
-        threshold: 0.2, // Элемент должен быть виден на 20%
-        rootMargin: '0px' // Убираем отступ, чтобы проще срабатывало
+        threshold: 0.2, // 20% of the element must be visible
+        rootMargin: '0px' // No margin to ensure earlier triggering
     };
 
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Отключаем наблюдение после срабатывания
+                observer.unobserve(entry.target); // Stop observing once visible
             }
         });
     }, observerOptions);
-
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-
-    const slideImages = document.querySelectorAll('.slide-in-image');
-    slideImages.forEach(img => {
-        observer.observe(img);
-    });
-});
 
     // Observe all sections
     const sections = document.querySelectorAll('section');
@@ -405,4 +394,3 @@ document.addEventListener('DOMContentLoaded', function() {
         lazyImages.forEach(img => imageObserver.observe(img));
     }
 });
-
