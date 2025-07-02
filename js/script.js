@@ -258,4 +258,72 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Business modal functionality
+    const businessModal = document.getElementById('businessModal');
+    const businessForm = document.getElementById('businessForm');
+    const modalClose = document.querySelector('.modal-close');
+
+    // Open business modal when clicking business CTA buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.textContent.includes('Получить коммерческое предложение')) {
+            e.preventDefault();
+            if (businessModal) {
+                businessModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+    });
+
+    // Close modal when clicking close button
+    if (modalClose) {
+        modalClose.addEventListener('click', function() {
+            businessModal.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+    }
+
+    // Close modal when clicking outside
+    if (businessModal) {
+        businessModal.addEventListener('click', function(e) {
+            if (e.target === businessModal) {
+                businessModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Handle business form submission
+    if (businessForm) {
+        businessForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const company = formData.get('company') || 'Не указано';
+            const name = formData.get('name') || 'Не указано';
+            const phone = formData.get('phone');
+            const email = formData.get('email') || 'Не указано';
+            const info = formData.get('info') || 'Не указано';
+            
+            if (!phone || phone.trim() === '') {
+                alert('Пожалуйста, укажите номер телефона');
+                return;
+            }
+            
+            showSuccessMessage();
+            this.reset();
+            businessModal.classList.remove('show');
+            document.body.style.overflow = '';
+            console.log('Business form submitted:', { company, name, phone, email, info });
+        });
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && businessModal && businessModal.classList.contains('show')) {
+            businessModal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    });
 });
+
