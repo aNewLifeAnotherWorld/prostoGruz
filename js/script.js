@@ -1,4 +1,3 @@
-// Main initialization
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Menu Toggle
     const menuToggle = document.querySelector('.menu-toggle');
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
             body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         });
 
-        // Close mobile menu when clicking on nav links
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', function() {
                 menuToggle.classList.remove('active');
@@ -23,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Close mobile menu when clicking on social links
         socialLinks.forEach(link => {
             link.addEventListener('click', function() {
                 menuToggle.classList.remove('active');
@@ -32,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Close mobile menu when clicking outside
         mobileMenu.addEventListener('click', function(e) {
             if (e.target === mobileMenu) {
                 menuToggle.classList.remove('active');
@@ -41,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Prevent body scroll when mobile menu is open
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 menuToggle.classList.remove('active');
@@ -50,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Swipe to close mobile menu
         let touchStartY = 0;
         let touchEndY = 0;
 
@@ -60,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         mobileMenu.addEventListener('touchend', function(e) {
             touchEndY = e.changedTouches[0].screenY;
-            if (touchStartY - touchEndY < -100) { // Swipe up
+            if (touchStartY - touchEndY < -100) {
                 menuToggle.classList.remove('active');
                 mobileMenu.classList.remove('active');
                 body.style.overflow = '';
@@ -89,30 +83,82 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Intersection Observer for animations
     const observerOptions = {
-        threshold: 0.2, // 20% of element visible
-        rootMargin: '0px' // No margin for reliable triggering
+        threshold: 0.2,
+        rootMargin: '0px'
     };
 
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Stop observing once visible
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Observe all sections
     const sections = document.querySelectorAll('section');
     sections.forEach(section => {
         observer.observe(section);
     });
 
-    // Observe slide-in images
     const slideImages = document.querySelectorAll('.slide-in-image');
     slideImages.forEach(img => {
         observer.observe(img);
     });
+
+    // Hero Effects (Slideshow)
+    class HeroEffects {
+        constructor() {
+            this.bgImages = document.querySelectorAll('.hero-bg-image');
+            this.currentImage = 0;
+            this.intervalTime = 4000;
+            this.init();
+        }
+
+        preloadImages() {
+            const images = [
+                'images/hero_bg_1.png',
+                'images/hero_bg_2.png',
+                'images/hero_bg_3.png'
+            ];
+
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+                img.onload = () => console.log(`Image loaded: ${src}`);
+                img.onerror = () => console.error(`Failed to load image: ${src}`);
+            });
+        }
+
+        startSlideshow() {
+            if (this.bgImages.length === 0) {
+                console.error('No hero background images found');
+                return;
+            }
+
+            // Показать первое изображение
+            this.bgImages[this.currentImage].classList.add('active');
+            
+            // Запустить слайдшоу
+            setInterval(() => {
+                // Убрать активный класс с текущего изображения
+                this.bgImages[this.currentImage].classList.remove('active');
+                
+                // Перейти к следующему изображению
+                this.currentImage = (this.currentImage + 1) % this.bgImages.length;
+                
+                // Добавить активный класс к новому изображению
+                this.bgImages[this.currentImage].classList.add('active');
+            }, this.intervalTime);
+        }
+
+        init() {
+            this.preloadImages();
+            this.startSlideshow();
+        }
+    }
+
+    new HeroEffects();
 
     // Form submission
     const orderForm = document.querySelector('.order-form');
@@ -130,7 +176,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Send to Telegram
             sendToTelegram({
                 type: 'Заявка с сайта',
                 name: name,
@@ -156,49 +201,41 @@ document.addEventListener('DOMContentLoaded', function() {
         partnership: document.getElementById('partnershipForm')
     };
 
-    // Open modals based on button clicks
     document.addEventListener('click', function(e) {
         const target = e.target;
         
-        // Header "Оформить заявку" button
         if (target.classList.contains('nav-btn') && target.textContent.includes('Оформить заявку')) {
             e.preventDefault();
             openModal('order');
         }
         
-        // Hero "Подобрать грузчиков" button
         if (target.textContent.includes('Подобрать грузчиков')) {
             e.preventDefault();
             openModal('order');
         }
         
-        // Banner "Заказать со скидкой" button
         if (target.classList.contains('banner-btn') || target.textContent.includes('Заказать со скидкой')) {
             e.preventDefault();
             openModal('order');
         }
         
-        // Service cards "Заказать" buttons
         if (target.classList.contains('btn') && target.textContent.includes('Заказать')) {
             e.preventDefault();
             const serviceTitle = target.closest('.service-card').querySelector('h3').textContent;
             openModal('order', serviceTitle);
         }
         
-        // Business "Получить коммерческое предложение" button
         if (target.textContent.includes('Получить коммерческое предложение')) {
             e.preventDefault();
             openModal('business');
         }
         
-        // Partnership "Стать партнёром" button
         if (target.textContent.includes('Стать партнёром')) {
             e.preventDefault();
             openModal('partnership');
         }
     });
 
-    // Close modal functionality
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('modal-close')) {
             closeAllModals();
@@ -209,14 +246,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Close modal on Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeAllModals();
         }
     });
 
-    // Form submissions for modals
     Object.keys(forms).forEach(formType => {
         const form = forms[formType];
         if (form) {
@@ -257,7 +292,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 
-                // Send to Telegram
                 sendToTelegram(data);
                 
                 showSuccessMessage();
@@ -273,7 +307,6 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.classList.add('show');
             document.body.style.overflow = 'hidden';
             
-            // Pre-fill service info if provided
             if (serviceTitle && modalType === 'order') {
                 const infoField = modal.querySelector('textarea[name="info"]');
                 if (infoField) {
@@ -292,10 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
     }
 
-    // Telegram integration function
     function sendToTelegram(data) {
-        // Placeholder for Telegram integration
-        // The actual bot token and chat ID will be added later
         const TELEGRAM_BOT_TOKEN = window.TELEGRAM_BOT_TOKEN || 'YOUR_BOT_TOKEN_HERE';
         const TELEGRAM_CHAT_ID = window.TELEGRAM_CHAT_ID || 'YOUR_CHAT_ID_HERE';
         
@@ -343,7 +373,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Success message handling
     function showSuccessMessage() {
         const successMessage = document.createElement('div');
         successMessage.className = 'success-message';
@@ -403,21 +432,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         input.addEventListener('keydown', function(e) {
-            // Allow: backspace, delete, tab, escape, enter, Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
-            if (
-                [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
-                (e.keyCode === 65 && e.ctrlKey === true) ||
-                (e.keyCode === 67 && e.ctrlKey === true) ||
-                (e.keyCode === 86 && e.ctrlKey === true) ||
-                (e.keyCode === 88 && e.ctrlKey === true)
-            ) {
+            if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter'].includes(e.key) ||
+                (e.ctrlKey && ['a', 'c', 'v', 'x'].includes(e.key.toLowerCase()))) {
                 return;
             }
-            // Allow only numbers
-            if (e.keyCode < 48 || e.keyCode > 57) {
+            if (!/[0-9]/.test(e.key)) {
                 e.preventDefault();
             }
         });
     });
-});
 
+    // Header scroll effect
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('.header');
+        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll > lastScrollTop && currentScroll > 100) {
+            header.classList.add('hidden');
+        } else {
+            header.classList.remove('hidden');
+        }
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+
+});
