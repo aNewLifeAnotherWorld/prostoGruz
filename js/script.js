@@ -130,9 +130,216 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
+            // Send to Telegram
+            sendToTelegram({
+                type: 'Заявка с сайта',
+                name: name,
+                phone: phone,
+                info: info
+            });
+            
             showSuccessMessage();
             this.reset();
-            console.log('Form submitted:', { name, phone, info });
+        });
+    }
+
+    // Modal functionality
+    const modals = {
+        business: document.getElementById('businessModal'),
+        order: document.getElementById('orderModal'),
+        partnership: document.getElementById('partnershipModal')
+    };
+
+    const forms = {
+        business: document.getElementById('businessForm'),
+        order: document.getElementById('orderForm'),
+        partnership: document.getElementById('partnershipForm')
+    };
+
+    // Open modals based on button clicks
+    document.addEventListener('click', function(e) {
+        const target = e.target;
+        
+        // Header "Оформить заявку" button
+        if (target.classList.contains('nav-btn') && target.textContent.includes('Оформить заявку')) {
+            e.preventDefault();
+            openModal('order');
+        }
+        
+        // Hero "Подобрать грузчиков" button
+        if (target.textContent.includes('Подобрать грузчиков')) {
+            e.preventDefault();
+            openModal('order');
+        }
+        
+        // Banner "Заказать со скидкой" button
+        if (target.classList.contains('banner-btn') || target.textContent.includes('Заказать со скидкой')) {
+            e.preventDefault();
+            openModal('order');
+        }
+        
+        // Service cards "Заказать" buttons
+        if (target.classList.contains('btn') && target.textContent.includes('Заказать')) {
+            e.preventDefault();
+            const serviceTitle = target.closest('.service-card').querySelector('h3').textContent;
+            openModal('order', serviceTitle);
+        }
+        
+        // Business "Получить коммерческое предложение" button
+        if (target.textContent.includes('Получить коммерческое предложение')) {
+            e.preventDefault();
+            openModal('business');
+        }
+        
+        // Partnership "Стать партнёром" button
+        if (target.textContent.includes('Стать партнёром')) {
+            e.preventDefault();
+            openModal('partnership');
+        }
+    });
+
+    // Close modal functionality
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal-close')) {
+            closeAllModals();
+        }
+        
+        if (e.target.classList.contains('modal')) {
+            closeAllModals();
+        }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeAllModals();
+        }
+    });
+
+    // Form submissions for modals
+    Object.keys(forms).forEach(formType => {
+        const form = forms[formType];
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                let data = {};
+                
+                if (formType === 'business') {
+                    data = {
+                        type: 'Коммерческое предложение',
+                        company: formData.get('company') || 'Не указано',
+                        name: formData.get('name') || 'Не указано',
+                        phone: formData.get('phone'),
+                        email: formData.get('email') || 'Не указано',
+                        info: formData.get('info') || 'Не указано'
+                    };
+                } else if (formType === 'partnership') {
+                    data = {
+                        type: 'Заявка на партнерство',
+                        name: formData.get('name') || 'Не указано',
+                        phone: formData.get('phone'),
+                        email: formData.get('email') || 'Не указано',
+                        info: formData.get('info') || 'Не указано'
+                    };
+                } else {
+                    data = {
+                        type: 'Заявка с сайта',
+                        name: formData.get('name') || 'Не указано',
+                        phone: formData.get('phone'),
+                        info: formData.get('info') || 'Не указано'
+                    };
+                }
+                
+                if (!data.phone || data.phone.trim() === '') {
+                    alert('Пожалуйста, укажите номер телефона');
+                    return;
+                }
+                
+                // Send to Telegram
+                sendToTelegram(data);
+                
+                showSuccessMessage();
+                this.reset();
+                closeAllModals();
+            });
+        }
+    });
+
+    function openModal(modalType, serviceTitle = '') {
+        const modal = modals[modalType];
+        if (modal) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            // Pre-fill service info if provided
+            if (serviceTitle && modalType === 'order') {
+                const infoField = modal.querySelector('textarea[name="info"]');
+                if (infoField) {
+                    infoField.value = `Интересует услуга: ${serviceTitle}`;
+                }
+            }
+        }
+    }
+
+    function closeAllModals() {
+        Object.values(modals).forEach(modal => {
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        });
+        document.body.style.overflow = '';
+    }
+
+    // Telegram integration function
+    function sendToTelegram(data) {
+        // Placeholder for Telegram integration
+        // The actual bot token and chat ID will be added later
+        const TELEGRAM_BOT_TOKEN = window.TELEGRAM_BOT_TOKEN || 'YOUR_BOT_TOKEN_HERE';
+        const TELEGRAM_CHAT_ID = window.TELEGRAM_CHAT_ID || 'YOUR_CHAT_ID_HERE';
+        
+        if (TELEGRAM_BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE' || TELEGRAM_CHAT_ID === 'YOUR_CHAT_ID_HERE') {
+            console.log('Telegram integration not configured. Data would be sent:', data);
+            return;
+        }
+        
+        let message = `🔔 ${data.type}\n\n`;
+        
+        if (data.company) {
+            message += `🏢 Компания: ${data.company}\n`;
+        }
+        message += `👤 Имя: ${data.name}\n`;
+        message += `📞 Телефон: ${data.phone}\n`;
+        if (data.email) {
+            message += `📧 Email: ${data.email}\n`;
+        }
+        message += `💬 Комментарий: ${data.info}\n`;
+        message += `⏰ Время: ${new Date().toLocaleString('ru-RU')}`;
+        
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'HTML'
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                console.log('Message sent to Telegram successfully');
+            } else {
+                console.error('Error sending message to Telegram:', data);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
     }
 
@@ -164,52 +371,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         });
     }
-
-    // Call buttons functionality
-    const callButtons = document.querySelectorAll('.call-btn, .cta-btn, .banner-btn');
-    callButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const heroForm = document.querySelector('.hero-form-container');
-            if (heroForm) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = heroForm.offsetTop - headerHeight - 20;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-                setTimeout(() => {
-                    const phoneInput = document.querySelector('#phone');
-                    if (phoneInput) {
-                        phoneInput.focus();
-                    }
-                }, 500);
-            }
-        });
-    });
-
-    // Service cards functionality
-    const serviceButtons = document.querySelectorAll('.service-card .btn');
-    serviceButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const serviceTitle = this.closest('.service-card').querySelector('h3').textContent;
-            const heroForm = document.querySelector('.hero-form-container');
-            if (heroForm) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = heroForm.offsetTop - headerHeight - 20;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-                setTimeout(() => {
-                    const infoTextarea = document.querySelector('#info');
-                    if (infoTextarea) {
-                        infoTextarea.value = `Интересует услуга: ${serviceTitle}`;
-                        infoTextarea.focus();
-                    }
-                }, 500);
-            }
-        });
-    });
 
     // Phone number formatting
     const phoneInputs = document.querySelectorAll('input[type="tel"]');
@@ -257,73 +418,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
             }
         });
-    });
-
-    // Business modal functionality
-    const businessModal = document.getElementById('businessModal');
-    const businessForm = document.getElementById('businessForm');
-    const modalClose = document.querySelector('.modal-close');
-
-    // Open business modal when clicking business CTA buttons
-    document.addEventListener('click', function(e) {
-        if (e.target.textContent.includes('Получить коммерческое предложение')) {
-            e.preventDefault();
-            if (businessModal) {
-                businessModal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-    });
-
-    // Close modal when clicking close button
-    if (modalClose) {
-        modalClose.addEventListener('click', function() {
-            businessModal.classList.remove('show');
-            document.body.style.overflow = '';
-        });
-    }
-
-    // Close modal when clicking outside
-    if (businessModal) {
-        businessModal.addEventListener('click', function(e) {
-            if (e.target === businessModal) {
-                businessModal.classList.remove('show');
-                document.body.style.overflow = '';
-            }
-        });
-    }
-
-    // Handle business form submission
-    if (businessForm) {
-        businessForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const company = formData.get('company') || 'Не указано';
-            const name = formData.get('name') || 'Не указано';
-            const phone = formData.get('phone');
-            const email = formData.get('email') || 'Не указано';
-            const info = formData.get('info') || 'Не указано';
-            
-            if (!phone || phone.trim() === '') {
-                alert('Пожалуйста, укажите номер телефона');
-                return;
-            }
-            
-            showSuccessMessage();
-            this.reset();
-            businessModal.classList.remove('show');
-            document.body.style.overflow = '';
-            console.log('Business form submitted:', { company, name, phone, email, info });
-        });
-    }
-
-    // Close modal on Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && businessModal && businessModal.classList.contains('show')) {
-            businessModal.classList.remove('show');
-            document.body.style.overflow = '';
-        }
     });
 });
 
