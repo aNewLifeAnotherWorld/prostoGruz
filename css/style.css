@@ -236,26 +236,83 @@ h1, h2, h3, h4 {
 
 /* Hero Section */
 .hero {
-    background-color: var(--background-gray);
-    color: var(--text-color);
-    padding: 40px 0;
-    text-align: left;
     position: relative;
+    height: auto;
     overflow: hidden;
+    background: var(--background-gray);
+    padding: 60px 0;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    will-change: opacity;
+}
+
+.hero-bg-image.active {
+    opacity: 1;
+}
+
+.hero-bg-1 {
+    background-image: url('../images/hero_bg_1.png');
+}
+
+.hero-bg-2 {
+    background-image: url('../images/hero_bg_2.png');
+}
+
+.hero-bg-3 {
+    background-image: url('../images/hero_bg_3.png');
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    z-index: 2;
 }
 
 .hero-wrapper {
+    position: relative;
     max-width: 1112px;
+    width: 100%;
+    height: 530px;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(15px);
     border-radius: 20px;
     padding: 30px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    min-height: 530px;
     display: flex;
     align-items: center;
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    z-index: 5;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -264,18 +321,27 @@ h1, h2, h3, h4 {
     gap: 30px;
     align-items: center;
     width: 100%;
+    position: relative;
+    z-index: 6;
 }
 
 .hero-text h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: var(--text-color);
+    color: var(--text-color) !important;
+    font-weight: 700;
+    line-height: 1.2;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .hero-text p {
     font-size: 1.1rem;
     margin-bottom: 25px;
-    color: #666;
+    color: var(--text-color) !important;
+    line-height: 1.5;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .hero-features {
@@ -284,13 +350,18 @@ h1, h2, h3, h4 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .hero-features li {
     font-size: 0.95rem;
-    color: #555;
+    color: var(--text-color) !important;
     position: relative;
     padding-left: 25px;
+    line-height: 1.4;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .hero-features li::before {
@@ -298,6 +369,27 @@ h1, h2, h3, h4 {
     position: absolute;
     left: 0;
     top: 0;
+}
+
+.hero-text .cta-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: none;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.hero-text .cta-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
 }
 
 /* Order Form */
@@ -310,6 +402,7 @@ h1, h2, h3, h4 {
     border: 1px solid rgba(255, 255, 255, 0.3);
     position: relative;
     max-width: 350px;
+    z-index: 6;
 }
 
 .hero-form-container h3 {
@@ -317,6 +410,102 @@ h1, h2, h3, h4 {
     margin-bottom: 15px;
     font-size: 1.3rem;
     text-align: center;
+}
+
+/* Fade-in Animation */
+.fade-in-element {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s ease-out;
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in-element:nth-child(1) {
+    transition-delay: 0.2s;
+}
+
+.fade-in-element:nth-child(2) {
+    transition-delay: 0.4s;
+}
+
+.fade-in-element:nth-child(3) {
+    transition-delay: 0.6s;
+}
+
+.fade-in-element:nth-child(4) {
+    transition-delay: 0.8s;
+}
+
+.fade-in-element:nth-child(5) {
+    transition-delay: 1s;
+}
+
+/* Parallax Effect */
+@media (prefers-reduced-motion: no-preference) {
+    .hero-bg-image {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+    
+    .hero-collage {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-wrapper {
+        max-width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    .hero-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .collage-element {
+        opacity: 0.2;
+    }
+    
+    .collage-truck {
+        width: 120px;
+        height: 90px;
+        top: 15%;
+        right: 5%;
+    }
+    
+    .collage-map {
+        width: 100px;
+        height: 100px;
+        bottom: 25%;
+        left: 3%;
+    }
+    
+    .collage-route {
+        width: 110px;
+        height: 80px;
+        top: 45%;
+        right: 15%;
+    }
+    
+    .hero-map-overlay {
+        opacity: 0.1;
+    }
 }
 
 .order-form .form-group {
@@ -576,8 +765,8 @@ section h2 {
 }
 
 .client-logo {
-    flex: 0 0 200px;
-    height: 100px;
+    flex: 0 0 250px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -586,7 +775,7 @@ section h2 {
 
 .client-logo img {
     max-width: 100%;
-    max-height: 80px;
+    max-height: 120px;
     opacity: 0.7;
     transition: opacity 0.3s ease;
 }
@@ -1230,7 +1419,7 @@ section h2 {
 
     .hero-wrapper {
         max-width: 100%;
-        min-height: auto;
+        height: auto;
         padding: 20px;
     }
 
@@ -1711,155 +1900,6 @@ section.visible {
 .modal {
     display: none;
     position: fixed;
-    z-index: 10000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    backdrop-filter: blur(5px);
-}
-
-.modal.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s ease-out;
-}
-
-.modal-content {
-    background: var(--white);
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 500px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    animation: slideIn 0.3s ease-out;
-}
-
-.modal-close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: #999;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.modal-close:hover {
-    color: var(--primary-color);
-}
-
-.modal h3 {
-    color: var(--text-color);
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    text-align: center;
-}
-
-.modal .order-form {
-    margin-top: 0;
-}
-
-.modal .order-form .form-group {
-    margin-bottom: 15px;
-}
-
-.modal .order-form .form-group input,
-.modal .order-form .form-group select,
-.modal .order-form .form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e1e5e9;
-    border-radius: 10px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-    font-family: 'Roboto', sans-serif;
-}
-
-.modal .order-form .form-group input:focus,
-.modal .order-form .form-group select:focus,
-.modal .order-form .form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
-
-.modal .order-form .form-group textarea {
-    height: 80px;
-    resize: vertical;
-}
-
-.modal .order-form .submit-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: var(--white);
-    border: none;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 10px;
-}
-
-.modal .order-form .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
-}
-
-.modal .agreement {
-    font-size: 0.8rem;
-    color: #666;
-    text-align: center;
-    line-height: 1.4;
-    margin-top: 15px;
-}
-
-.modal .agreement a {
-    color: var(--primary-color);
-    text-decoration: underline;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { 
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-    }
-    to { 
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@media (max-width: 768px) {
-    .modal-content {
-        padding: 30px 20px;
-        margin: 20px;
-        width: calc(100% - 40px);
-    }
-    
-    .modal h3 {
-        font-size: 1.5rem;
-    }
-}
-
-
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
@@ -2056,37 +2096,3 @@ section.visible {
 .overlay.show {
     opacity: 1;
 }
-
-/* Responsive modal styles */
-@media (max-width: 768px) {
-    .modal-content {
-        padding: 30px 20px;
-        margin: 20px;
-        max-width: none;
-        width: calc(100% - 40px);
-    }
-    
-    .modal h3 {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-    }
-    
-    .modal .form-group input,
-    .modal .form-group textarea {
-        padding: 12px;
-        font-size: 0.95rem;
-    }
-    
-    .modal .submit-btn {
-        padding: 12px 25px;
-        font-size: 1rem;
-    }
-    
-    .success-message {
-        padding: 30px 20px;
-        margin: 20px;
-        max-width: none;
-        width: calc(100% - 40px);
-    }
-}
-
